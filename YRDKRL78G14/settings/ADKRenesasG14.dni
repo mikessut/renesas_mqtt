@@ -1,0 +1,118 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[TK]
+Map0=0,0,262143,262144
+Map1=1,1023744,1048319,24576
+MapEntries=2
+HWsettings=3,0,1,2,4,0,1,0,16,1,0
+HWsettingsCube=2,4294967295,2,4294967295,0,1,0,0
+HWsettingsRsuid=00000000000000000000
+EventEntries=0
+SeqName0=
+SeqData0=0,0
+SeqEnable10=0,0,0,0,0,0,0,0,0,0
+SeqEnable20=0,0,0,0,0,0,0,0,0,0
+SeqEnable30=0,0,0,0,0,0,0,0,0,0
+SeqEnable40=0,0,0,0,0,0,0,0,0,0
+SeqDisable0=0,0,0,0,0,0,0,0,0,0
+SeqData20=0,0,0,0,0,0
+SeqName1=
+SeqData1=0,0
+SeqEnable11=0,0,0,0,0,0,0,0,0,0
+SeqEnable21=0,0,0,0,0,0,0,0,0,0
+SeqEnable31=0,0,0,0,0,0,0,0,0,0
+SeqEnable41=0,0,0,0,0,0,0,0,0,0
+SeqDisable1=0,0,0,0,0,0,0,0,0,0
+SeqData21=0,0,0,0,0,0
+SeqName2=
+SeqData2=0,0
+SeqEnable12=0,0,0,0,0,0,0,0,0,0
+SeqEnable22=0,0,0,0,0,0,0,0,0,0
+SeqEnable32=0,0,0,0,0,0,0,0,0,0
+SeqEnable42=0,0,0,0,0,0,0,0,0,0
+SeqDisable2=0,0,0,0,0,0,0,0,0,0
+SeqData22=0,0,0,0,0,0
+SeqName3=
+SeqData3=0,0
+SeqEnable13=0,0,0,0,0,0,0,0,0,0
+SeqEnable23=0,0,0,0,0,0,0,0,0,0
+SeqEnable33=0,0,0,0,0,0,0,0,0,0
+SeqEnable43=0,0,0,0,0,0,0,0,0,0
+SeqDisable3=0,0,0,0,0,0,0,0,0,0
+SeqData23=0,0,0,0,0,0
+SeqName4=
+SeqData4=0,0
+SeqEnable14=0,0,0,0,0,0,0,0,0,0
+SeqEnable24=0,0,0,0,0,0,0,0,0,0
+SeqEnable34=0,0,0,0,0,0,0,0,0,0
+SeqEnable44=0,0,0,0,0,0,0,0,0,0
+SeqDisable4=0,0,0,0,0,0,0,0,0,0
+SeqData24=0,0,0,0,0,0
+TraceSettings=128,0,0,0,0,0,8192
+TimerSettings=0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Version=1,trace.txt
+LastDevFile=DR5F104PJ.DVF
+EmulType=256
+BreakToggle=0
+EventLimits=0,2,2,0,0,0,2
+LastSetupFailed=0
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[DebugChecksum]
+Checksum=978184348
+[watch_formats]
+Fmt0={W}0:temp	3	0
+[DataSample]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+[Breakpoints]
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\Windows\system32}.209.19" 0 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\Windows\system32}.83.5" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\Windows\system32}.88.9" 0 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\Windows\system32}.578.3" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Startup.c}.340.5" 0 0 0 0 "" 0 ""
+Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Startup.c}.347.8" 0 0 0 0 "" 0 ""
+Bp6=_ "STD_CODE" "{$PROJ_DIR$\applilet3_src\r_cg_intc_user.c}.178.5" 0 0 0 0 "" 0 ""
+Bp7=_ "STD_CODE" "{$PROJ_DIR$\applilet3_src\r_cg_intc_user.c}.164.5" 0 0 0 0 "" 0 ""
+Bp8=_ "STD_CODE" "{$PROJ_DIR$\applilet3_src\r_cg_intc_user.c}.150.5" 0 0 0 0 "" 0 ""
+Bp9=_ "STD_CODE" "{$PROJ_DIR$\..\Micrium\Software\uC-Probe\Target\Communication\Generic\WiFi\Source\probe_wifi.c}.364.5" 0 0 0 0 "" 0 ""
+Bp10=_ "STD_CODE" "{$PROJ_DIR$\..\..\ADK_G14_9_Demo_3.7\Apps\App_Exosite.c}.757.7" 0 0 0 0 "" 0 ""
+Bp11=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Exosite.c}.355.11" 0 0 0 0 "" 0 ""
+Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Exosite.c}.766.7" 0 0 0 0 "" 0 ""
+Count=13
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Aliases]
+A0=_ "C:\FDI\SVN\Renesas\YRDKRL78G13\GlyphLib\GlyphLib\glyph\Drivers\ST7579_LCD.c" ""
+A1=_ "C:\FDI\SVN\Renesas\YRDKRL78G14\GlyphLib\GlyphLib\glyph\Drivers\ST7579_LCD.c" ""
+A2=_ "C:\WorkSpace\YRDKRL78G14\ADK_G14_08_23_2012\YRDKRL78G14\drv\led.c" ""
+Count=3
+SuppressDialog=1
+[TraceHelper]
+Enabled=0
+ShowSource=1
+[CallStackLog]
+Enabled=0
+[DriverProfiling]
+Enabled=0
+Mode=0
+Graph=0
+Symbiont=0
+Exclusions=
