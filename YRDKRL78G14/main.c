@@ -24,13 +24,13 @@
 #include <drv\SPI.h>
 #include <GainSpan_SPI.h>
 #include <NVSettings.h>
-#include <Apps/Apps.h>
-#include <Apps/App_Swarm.h>
+//#include <Apps/Apps.h>
+//#include <Apps/App_Swarm.h>
 #include "stdio.h"
 #include "string.h"
 #include "led.h"
 #include "system/Switch.h"
-#include <includes.h>                                           /* Micrium firmware.                                    */
+//#include <includes.h>                                           /* Micrium firmware.                                    */
 
 extern void LEDFlash(uint32_t timeout);
 extern void led_task(void);

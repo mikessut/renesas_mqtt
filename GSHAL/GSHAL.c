@@ -21,7 +21,7 @@
 #include <sensors/LightSensor.h>
 #include <mstimer.h>
 #include <drv/Glyph/lcd.h>
-#include "Apps.h"
+//#include "Apps.h"
 #include "HostApp.h"
 #ifndef APP_MAX_RECEIVED_DATA
     #error "APP_MAX_RECEIVED_DATA must be defined in platform.h"
