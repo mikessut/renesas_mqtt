@@ -122,19 +122,6 @@ void GSinit(void) {
        rxMsgId = AtLibGs_EnableRadio(1);                       // enable radio
   }while(rxMsgId != ATLIBGS_MSG_ID_OK);
   
-  /* Get MAC Address & Show */
-  /*
-  rxMsgId = AtLibGs_GetMAC(WiFiMAC);    
-  if (rxMsgId == ATLIBGS_MSG_ID_OK)
-    AtLibGs_ParseGetMacResponse(WifiMAC);
-  if (showMessage > 0) {  
-    DisplayLCD(LCD_LINE5, "MAC ADDRESS");   
-    DisplayLCD(LCD_LINE6, (const uint8_t *)WifiMAC);
-    DisplayLCD(LCD_LINE2, (const uint8_t *)ExositeAppVersion);
-    MSTimerDelay(2000);
-    DisplayLCD(LCD_LINE2, "            ");
-  }
-  */
   
   do {
     AtLibGs_FlushIncomingMessage();
@@ -179,9 +166,7 @@ void GSinit(void) {
 
 int  main(void)
 {
-    //AppMode_T AppMode;  APP_STATE_E state=UPDATE_TEMPERATURE; 
-    //char LCDString[30], temp_char[2]; uint16_t temp; float ftemp;
-    //uint8_t isLimiteAPmode=1, rxData; uint32_t start;  
+   
     char msg[15];
   
     HardwareSetup();  
@@ -208,18 +193,6 @@ int  main(void)
     Potentiometer_Init();  
     Accelerometer_Init();
     SwitchesInit();
-    
-    /*
-    Accelerometer_Get();
-    sprintf(msg,"%d",gAccData[0]);
-    DisplayLCD(LCD_LINE1, msg);
-    
-    sprintf(msg,"%d",gAccData[1]);
-    DisplayLCD(LCD_LINE2, msg);
-    
-    sprintf(msg,"%d",gAccData[2]); // This is z axis (out of board plane)
-    DisplayLCD(LCD_LINE3, msg);
-    */
     
     GSinit();
     

@@ -31,12 +31,11 @@
 #define M2MIO_BROKER_HOSTNAME   "q.m2m.io"
 #define	M2MIO_BROKER_PORT	1883
 
-// sprintf(pubTopic, "%s/%s/%s", M2MIO_DOMAIN, M2MIO_DEVICE_TYPE, M2MIO_DEVICE_ID);
-
 
 uint8_t cid;
+
 #define PACKET_BUF_SIZE 120
-uint8_t packet_buffer[PACKET_BUF_SIZE];
+uint8_t packet_buffer[PACKET_BUF_SIZE];   // This is used to contruct the packets set to MQTT broker
 
 extern uint8_t G_received[APP_MAX_RECEIVED_DATA + 1];
 extern unsigned int G_receivedCount;
@@ -134,30 +133,26 @@ ATLIBGS_TCPMessage rxm;
 
 int read_packet(int timeout) {
   
-  //ATLIBGS_TCPMessage rxm;
   AtLibGs_WaitForTCPMessage(timeout);
   AtLibGs_ParseTCPData(G_received,G_receivedCount,&rxm);
   
   return rxm.numBytes;
-        //return G_receivedCount;
-	//return 0; //GSreadZmsg(packet_buffer);  // Customized for GainSpan
 }
 
 
 
 int m2mtest() {
 	int16_t packet_length;
-	//int i;
+	
 	mqtt_broker_handle_t broker;
-	//int err;
+	
 	char clientIDStr[100];
 	char pubTopic[100];
         char pubMsgStr[25];
         uint8_t msg[25];
         uint16_t l;
-	uint8_t mode = 0;
-	
-		
+	uint8_t mode = PUB_ACCEL_MODE;
+
 	// now connect using user/password, publish sensor values on
 	// appropriate topic <domain>/<device type>/<device id>
 	
@@ -183,36 +178,25 @@ int m2mtest() {
 		return -1;
 	}
 	
-	//printf("packet_buffer[0]: %x\n",packet_buffer[0]);
 	if(MQTTParseMessageType(rxm.message) != MQTT_MSG_CONNACK) { // MQTT_MSG_CONNACK       2<<4
-		//fprintf(stderr, "CONNACK expected!\n");
-		//printf("CONNACK expected!\n");
 		return -2;
 	}
 	
 	if(rxm.message[3] != 0x00) {
-		//printf("CONNACK failed!\n");
 		return -2;
 	}
-	
-	
-	
-	
-        
+	        
         // subscribe
         
         App_PrepareIncomingData();
         AtLibGs_FlushIncomingMessage();
         
-        //int mqtt_subscribe(mqtt_broker_handle_t* broker, const char* topic, uint16_t* message_id);
         // Temporarily use pubTopic variable for subscribe
         sprintf(pubTopic, "%s/%s/%s", M2MIO_DOMAIN, M2MIO_DEVICE_TYPE, M2MIO_SUBSCRIBE_TOPIC);
         mqtt_subscribe(&broker, pubTopic, NULL);
         
         sprintf(pubTopic, "%s/%s/%s", M2MIO_DOMAIN, M2MIO_DEVICE_TYPE, M2MIO_DEVICE_ID);
 	
-
-		
 	while (1) {
           
           // switch modes if switch is pressed
@@ -250,8 +234,7 @@ int m2mtest() {
             
             finishJsonMsg(pubMsgStr);
             
-            // publish message
-            
+            // publish message            
             mqtt_publish(&broker, pubTopic, pubMsgStr, 0);
           } else if ( mode == PUB_POT_MODE ) {
             initJsonMsg(pubMsgStr);
@@ -259,17 +242,10 @@ int m2mtest() {
             
             finishJsonMsg(pubMsgStr);
             
-            // publish message
-            
-            mqtt_publish(&broker, pubTopic, pubMsgStr, 0);
-            
+            // publish message            
+            mqtt_publish(&broker, pubTopic, pubMsgStr, 0);            
           }
-
 	}
-	
-	//mqtt_disconnect(&broker);
-	//close_socket(&broker);
-	//return 0;
 }
 
 
