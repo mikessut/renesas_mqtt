@@ -31,16 +31,6 @@
 /* MAC Address of the S2W Node  */
 #define ATLIBGS_GS_NODE_MAC_ID      "00:1D:C9:01:01:D0"
 
-#if 1 // Demo configuration
-#define ATLIBGS_AP_SSID             "shalom"
-/* Access Point (AP) channel here. For auto channel, AP channel is NULL  */
-#define ATLIBGS_AP_CHANNEL          NULL //  "6"
-/* Uncomment the following macro to enable WPA PSK security */
-#define  ATLIBGS_SEC_PSK
-/* Specify the AP PSK here  */
-#define ATLIBGS_AP_SEC_PSK          "NovemberEight"
-#endif
-
 #define ATLIBGS_LIMITED_PROVISION_AP_SSID   "ProvisionAP"
 #define ATLIBGS_LIMITED_DOWNLOADAP_SSID     "DownloadAP"
 #define ATLIBGS_LIMITED_AP_CHANNEL   9  // use 0 for any
@@ -68,31 +58,10 @@
 /*  demo WPA security  */
 #define HOST_APP_WPA2
 
-#ifdef HOST_APP_WPA2
-#define HOST_APP_AP_SSID              "shalom" 
-#define HOST_APP_AP_SEC_PSK           "NovemberEight"  
-#else
-#define HOST_APP_AP_SSID              "GuLou"
-#endif
+#define HOST_APP_AP_SSID              "<SSID>" 
+#define HOST_APP_AP_SEC_PSK           "<WIFI_PASSWORD>"  
 
-//-----------------------------------------------------------------------------
-/* demo WEP security */
-//#define  HOST_APP_SEC_WEP
-//#define  HOST_APP_AP_SEC_WEP         "09243A7441"
-//#define  HOST_APP_AP_SSID            "my_wireless_dmz"
-
-//-----------------------------------------------------------------------------
-/*  demo OPEN security  */
-//#define HOST_APP_AP_SSID            "my_wireless_dmz"
-//#define HOST_APP_SEC_OPEN
-
-//-----------------------------------------------------------------------------
-/* demo WPA2 security     */
-//#define HOST_APP_AP_SSID              "my_demo_wpa"
-//#define HOST_APP_AP_SEC_PSK           "09243A7441"
-//#define HOST_APP_WPA2
 void ConsolePrintf(const char *format, ...);
-//#define HOST_APP_DEBUG_ENABLE
 
 #endif
 

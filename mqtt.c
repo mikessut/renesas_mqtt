@@ -28,9 +28,7 @@
 #define  M2MIO_DEVICE_TYPE	"things"
 #define  M2MIO_DEVICE_ID  	"device01"
 #define  M2MIO_SUBSCRIBE_TOPIC  "renesas"
-//#define M2MIO_BROKER_HOSTNAME "q.m2m.io"
-#define M2MIO_BROKER_IP         "54.243.165.1"
-//#define M2MIO_BROKER_IP         "192.168.2.8"
+#define M2MIO_BROKER_HOSTNAME   "q.m2m.io"
 #define	M2MIO_BROKER_PORT	1883
 
 // sprintf(pubTopic, "%s/%s/%s", M2MIO_DOMAIN, M2MIO_DEVICE_TYPE, M2MIO_DEVICE_ID);
@@ -100,12 +98,21 @@ int init_socket(mqtt_broker_handle_t* broker, const char* hostname, short port) 
 //	int flag = 1;
 	int keepalive = 300; // Seconds
 	char buf[100];
+        char ip[17];
+        char *p;
 	
 	
 	// create socket (get cid)
 	sprintf(buf,"%d",port);
-	//cid = GStcpconnect(hostname,buf);
-        AtLibGs_TCPClientStart((char*)hostname, port,&cid);
+                
+        AtLibGs_DNSLookup((char*)hostname);
+        AtLibGs_ParseDNSLookupResponse(ip);
+	
+        p = strstr(ip,"\r\nOK");   // Parse doesn't remove "OK" at end of string??
+        *p = '\0';
+        AtLibGs_FlushRxBuffer();
+        
+        AtLibGs_TCPClientStart(ip, port,&cid);
 		
 	// MQTT stuffs
 	mqtt_set_alive(broker, keepalive);
@@ -158,7 +165,9 @@ int m2mtest() {
 	
 	mqtt_init(&broker, clientIDStr);
 	mqtt_init_auth(&broker, M2MIO_USERNAME, M2MIO_PASSWORD);
-	init_socket(&broker, M2MIO_BROKER_IP, M2MIO_BROKER_PORT);
+
+        AtLibGs_FlushIncomingMessage();        
+	init_socket(&broker, M2MIO_BROKER_HOSTNAME, M2MIO_BROKER_PORT);
 	
         AtLibGs_FlushIncomingMessage();
         App_PrepareIncomingData();
