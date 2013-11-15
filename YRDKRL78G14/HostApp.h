@@ -31,6 +31,9 @@
 /* MAC Address of the S2W Node  */
 #define ATLIBGS_GS_NODE_MAC_ID      "00:1D:C9:01:01:D0"
 
+#define ATLIBGS_AP_SSID             ""
+#define ATLIBGS_AP_CHANNEL          NULL //  "6"
+
 #define ATLIBGS_LIMITED_PROVISION_AP_SSID   "ProvisionAP"
 #define ATLIBGS_LIMITED_DOWNLOADAP_SSID     "DownloadAP"
 #define ATLIBGS_LIMITED_AP_CHANNEL   9  // use 0 for any
@@ -59,7 +62,7 @@
 #define HOST_APP_WPA2
 
 #define HOST_APP_AP_SSID              "<SSID>" 
-#define HOST_APP_AP_SEC_PSK           "<WIFI_PASSWORD>"  
+#define HOST_APP_AP_SEC_PSK           "<WIFI_PASSWOD>"  
 
 void ConsolePrintf(const char *format, ...);
 

@@ -69,7 +69,34 @@ ShowArgs=0
 [Disassembly]
 MixedMode=1
 [DebugChecksum]
-Checksum=978184348
+Checksum=-594352368
+[InterruptLog]
+LogEnabled=0
+SumEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+SumSortOrder=0
+[DataLog]
+LogEnabled=0
+SumEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+[Breakpoints2]
+Count=0
+[Interrupts]
+Enabled=1
+[MemoryMap]
+Enabled=0
+Base=0
+UseAuto=0
+TypeViolation=1
+UnspecRange=1
+ActionState=1
+[Trace1]
+Enabled=0
+ShowSource=1
 [watch_formats]
 Fmt0={W}0:temp	3	0
 [DataSample]
@@ -91,7 +118,11 @@ Bp9=_ "STD_CODE" "{$PROJ_DIR$\..\Micrium\Software\uC-Probe\Target\Communication\
 Bp10=_ "STD_CODE" "{$PROJ_DIR$\..\..\ADK_G14_9_Demo_3.7\Apps\App_Exosite.c}.757.7" 0 0 0 0 "" 0 ""
 Bp11=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Exosite.c}.355.11" 0 0 0 0 "" 0 ""
 Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Exosite.c}.766.7" 0 0 0 0 "" 0 ""
-Count=13
+Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\mqtt.c}.302.4" 1 0 0 0 "" 0 ""
+Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\mqtt.c}.170.2" 1 0 0 0 "" 0 ""
+Bp15=_ "STD_CODE" "{$PROJ_DIR$\..\mqtt.c}.108.9" 1 0 0 0 "" 0 ""
+Bp16=_ "STD_CODE" "{$PROJ_DIR$\..\ATCmdLib\AtCmdLib.c}.618.5" 1 0 0 0 "" 0 ""
+Count=17
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
