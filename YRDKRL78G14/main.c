@@ -160,6 +160,7 @@ void GSinit(void) {
   /* Association success */
   AtLibGs_SetNodeAssociationFlag();
   DisplayLCD(LCD_LINE7, " Connected ");
+  DisplayLCD(LCD_LINE8, "");
   MSTimerDelay(2000);
   DisplayLCD(LCD_LINE7, "");
 }
@@ -190,11 +191,13 @@ int  main(void)
 
     DisplayLCD(LCD_LINE1, " CLOUD DEMO ");
     Temperature_Init();
-    Potentiometer_Init();  
+    Potentiometer_Init();
     Accelerometer_Init();
     SwitchesInit();
     
     GSinit();
+    
+    led_all_off();
     
     m2mtest();
     

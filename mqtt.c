@@ -43,6 +43,7 @@ extern unsigned int G_receivedCount;
 void App_PrepareIncomingData(void);
 
 extern int16_t *Accelerometer_Get(void);
+extern uint16_t Temperature_Get(void);
 extern int16_t	gAccData[3];
 
 #define PUB_POT_MODE 1
@@ -148,11 +149,13 @@ int m2mtest() {
 	
 	char clientIDStr[100];
 	char pubTopic[100];
-        char pubMsgStr[25];
+        char pubMsgStr[50];
         uint8_t msg[25];
         uint16_t l;
 	uint8_t mode = PUB_ACCEL_MODE;
 
+        uint16_t temperature;
+        
 	// now connect using user/password, publish sensor values on
 	// appropriate topic <domain>/<device type>/<device id>
 	
@@ -170,16 +173,18 @@ int m2mtest() {
 	mqtt_connect(&broker);
 	
 	// wait for CONNACK	
-	packet_length = read_packet(3000);
+	packet_length = read_packet(6000);
 	
 		
 	if(packet_length < 0) {
 		//printf("Error reading packet.\n");
+                DisplayLCD(LCD_LINE4, "packet error");
 		return -1;
 	}
 	
 	if(MQTTParseMessageType(rxm.message) != MQTT_MSG_CONNACK) { // MQTT_MSG_CONNACK       2<<4
-		return -2;
+            DisplayLCD(LCD_LINE4, "connack error");
+            return -2;
 	}
 	
 	if(rxm.message[3] != 0x00) {
@@ -214,9 +219,13 @@ int m2mtest() {
             } else if (MQTTParseMessageType(rxm.message) == MQTT_MSG_PUBLISH) {
               l = mqtt_parse_publish_msg(rxm.message,msg);
               msg[l] = '\0';
+              if (strncmp("{\"LCD", msg, 5) == 0) {
+                DisplayLCD(LCD_LINE5, "LCD");
+              } else {
+                DisplayLCD(LCD_LINE5, "");
+              }
               DisplayLCD(LCD_LINE3, msg);
             }
-                
                
             App_PrepareIncomingData();
                 
@@ -229,9 +238,13 @@ int m2mtest() {
             //addIntValToMsg("t", 12, pubMsgStr);
             Accelerometer_Get();
             
+            temperature = Temperature_Get();
             
-            addIntValToMsg("az",gAccData[2], pubMsgStr);
-            
+            addIntValToMsg("x",gAccData[0], pubMsgStr);
+            addIntValToMsg("y",gAccData[1], pubMsgStr);
+            addIntValToMsg("z",gAccData[2], pubMsgStr);
+            addIntValToMsg("t",temperature>>3, pubMsgStr);
+            addIntValToMsg("p",Potentiometer_Get(), pubMsgStr);            
             finishJsonMsg(pubMsgStr);
             
             // publish message            
