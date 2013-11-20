@@ -204,8 +204,9 @@ int  main(void)
     } else {
       // run demo using provisioned information
       GSinit();
-    
+      
       led_all_off();
+      m2mtest();
     }
 
     return 0;
