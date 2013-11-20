@@ -8,7 +8,7 @@
 #include <drv\Glyph\lcd.h>
 
 #include "AtCmdLib/AtCmdLib.h"
-
+#include "led.h"
 
 // values below can be found by logging into the m2m.io portal (http://app.m2m.io)
 // Username:  your email address you used to create the account
@@ -22,14 +22,22 @@
 //            Common examples include device's MAC address or serial number.
 //            Device-1, Device-2 are fine too.
 
-#define  M2MIO_USERNAME   	"<username>"
-#define  M2MIO_PASSWORD   	"<password>"    // MD5 key of password
-#define  M2MIO_DOMAIN     	"<domain>"
-#define  M2MIO_DEVICE_TYPE	"things"
+#define  M2MIO_USERNAME   	"demo@renesas.com"
+#define  M2MIO_PASSWORD   	"4c7a34d25eff9121c49658dbceadf694"    // MD5 key of password
+#define  M2MIO_DOMAIN     	"com.renesas"
+//#define  M2MIO_DOMAIN     	"public"
+#define  M2MIO_DEVICE_TYPE	"rl78"
 #define  M2MIO_DEVICE_ID  	"device01"
-#define  M2MIO_SUBSCRIBE_TOPIC  "renesas"
+#define  M2MIO_SUBSCRIBE_TOPIC  "device01/cmd"
 #define M2MIO_BROKER_HOSTNAME   "q.m2m.io"
 #define	M2MIO_BROKER_PORT	1883
+
+
+
+extern int atoi(const char *_S);
+void led_on(int n);
+void led_off(int n);
+uint8_t led_get(int n);
 
 
 uint8_t cid;
@@ -152,7 +160,13 @@ int m2mtest() {
         char pubMsgStr[50];
         uint8_t msg[25];
         uint16_t l;
-	uint8_t mode = PUB_ACCEL_MODE;
+	//uint8_t mode = PUB_ACCEL_MODE;
+        
+        uint8_t loop = 0;
+        uint8_t button = 0;
+        uint8_t buttonDelay = 0;
+        uint8_t led_n;
+        char tmpStr[25];
 
         uint16_t temperature;
         
@@ -204,13 +218,8 @@ int m2mtest() {
 	
 	while (1) {
           
-          // switch modes if switch is pressed
-          if ( Switch1IsPressed() ) {
-            mode ^= 1;
-          }
-          
           // Look for incoming data
-          AtLibGs_WaitForTCPMessage(1000);
+          AtLibGs_WaitForTCPMessage(250);
           if (G_receivedCount > 0) {
             AtLibGs_ParseTCPData(G_received,G_receivedCount,&rxm);
             
@@ -219,19 +228,45 @@ int m2mtest() {
             } else if (MQTTParseMessageType(rxm.message) == MQTT_MSG_PUBLISH) {
               l = mqtt_parse_publish_msg(rxm.message,msg);
               msg[l] = '\0';
-              if (strncmp("{\"LCD", msg, 5) == 0) {
-                DisplayLCD(LCD_LINE5, "LCD");
+              if (strncmp("{\"LED", (char const *)msg, 5) == 0) {
+                //led_n = 10*atoi((char *)msg[7])+atoi((char *)msg[8]);
+                led_n = 10*(msg[8]-48)+msg[9]-48;
+                sprintf(tmpStr, "led_n:%d", led_n);
+                DisplayLCD(LCD_LINE3, (uint8_t *)tmpStr);
+                if (led_get(led_n) == 0) {
+                  led_on(led_n);
+                } else {
+                  led_off(led_n);
+                }
               } else {
-                DisplayLCD(LCD_LINE5, "");
+                DisplayLCD(LCD_LINE3, msg);
               }
-              DisplayLCD(LCD_LINE3, msg);
             }
                
             App_PrepareIncomingData();
-                
           }
           
-          if (mode == PUB_ACCEL_MODE) {
+          if (Switch1IsPressed()) {
+            button = 1;
+          }
+          
+          if (button == 1 && buttonDelay == 0) {
+            button = 0;
+            buttonDelay = 8;
+            // build publish message payload string
+            initJsonMsg(pubMsgStr);
+            addStringValToMsg("b1", "pressed", pubMsgStr);
+            finishJsonMsg(pubMsgStr);
+              
+            // publish message            
+            mqtt_publish(&broker, pubTopic, pubMsgStr, 0);
+          }
+          if (buttonDelay > 0) {
+            buttonDelay--;
+          }
+
+          // publish sensor every 4th loop (roughly 1 second)
+          if (loop == 0) {
             // build publish message payload string
             initJsonMsg(pubMsgStr);
 
@@ -249,15 +284,8 @@ int m2mtest() {
             
             // publish message            
             mqtt_publish(&broker, pubTopic, pubMsgStr, 0);
-          } else if ( mode == PUB_POT_MODE ) {
-            initJsonMsg(pubMsgStr);
-            addIntValToMsg("p",Potentiometer_Get(), pubMsgStr);
-            
-            finishJsonMsg(pubMsgStr);
-            
-            // publish message            
-            mqtt_publish(&broker, pubTopic, pubMsgStr, 0);            
           }
+          loop = loop >= 4 ? 0 : loop+1;
 	}
 }
 
