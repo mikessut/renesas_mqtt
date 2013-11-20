@@ -205,7 +205,8 @@ int  main(void)
       // run demo using provisioned information
       GSinit();
     
-	led_all_off();
+      led_all_off();
+    }
 
     return 0;
 }
