@@ -61,9 +61,6 @@
 /*  demo WPA security  */
 #define HOST_APP_WPA2
 
-#define HOST_APP_AP_SSID              "<SSID>" 
-#define HOST_APP_AP_SEC_PSK           "<WIFI_PASSWOD>"  
-
 void ConsolePrintf(const char *format, ...);
 
 #endif

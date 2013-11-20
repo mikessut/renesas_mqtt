@@ -102,6 +102,7 @@ extern void App_Exosite(void);
 extern void App_WebProvisioning_OverAirPush(void);
 extern void App_StartupADKDemo(uint8_t isLimiteAPmode);
 extern int LimitedAP_TCP_SereverBulkMode(void);
+extern NVSettings_t GNV_Setting;
 
 int m2mtest();
 
@@ -122,6 +123,8 @@ void GSinit(void) {
        rxMsgId = AtLibGs_EnableRadio(1);                       // enable radio
   }while(rxMsgId != ATLIBGS_MSG_ID_OK);
   
+  // Load sotred provisioning settings
+  NVSettingsLoad(&GNV_Setting);
   
   do {
     AtLibGs_FlushIncomingMessage();
@@ -144,7 +147,7 @@ void GSinit(void) {
   /* Store the PSK value. This call takes might take few seconds to return */
   do {
     DisplayLCD(LCD_LINE8, "Setting PSK");
-    rxMsgId = AtLibGs_CalcNStorePSK(HOST_APP_AP_SSID, HOST_APP_AP_SEC_PSK);
+    rxMsgId = AtLibGs_CalcNStorePSK(GNV_Setting.webprov.ssid, GNV_Setting.webprov.password);
   } while (ATLIBGS_MSG_ID_OK != rxMsgId);   
 
   /* Security Configuration */
@@ -155,7 +158,9 @@ void GSinit(void) {
     
   
   DisplayLCD(LCD_LINE7, " Connecting ");
-  rxMsgId = AtLibGs_Assoc(HOST_APP_AP_SSID, NULL, HOST_APP_AP_CHANNEL);
+  
+  rxMsgId = AtLibGs_Assoc(GNV_Setting.webprov.ssid, NULL, HOST_APP_AP_CHANNEL);
+  //rxMsgId = AtLibGs_Assoc(HOST_APP_AP_SSID, NULL, HOST_APP_AP_CHANNEL);
   
   /* Association success */
   AtLibGs_SetNodeAssociationFlag();
@@ -194,9 +199,15 @@ int  main(void)
     Accelerometer_Init();
     SwitchesInit();
     
-    GSinit();
+    if ( Switch1IsPressed() ) {
+      // provision
+      App_WebProvisioning_OverAirPush();
+    } else {
+      // run demo using provisioned information
+      GSinit();
     
-    m2mtest();
+      m2mtest();
+    }
     
 
     return 0;

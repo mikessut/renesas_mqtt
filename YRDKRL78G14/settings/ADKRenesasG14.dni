@@ -69,7 +69,7 @@ ShowArgs=0
 [Disassembly]
 MixedMode=1
 [DebugChecksum]
-Checksum=-1353660316
+Checksum=1226246749
 [InterruptLog]
 LogEnabled=0
 SumEnabled=0
@@ -105,21 +105,8 @@ GraphEnabled=0
 ShowTimeLog=1
 ShowTimeSum=1
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\Windows\system32}.209.19" 0 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\Windows\system32}.83.5" 0 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\Windows\system32}.88.9" 0 0 0 0 "" 0 ""
-Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\Windows\system32}.578.3" 0 0 0 0 "" 0 ""
-Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Startup.c}.340.5" 0 0 0 0 "" 0 ""
-Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Startup.c}.347.8" 0 0 0 0 "" 0 ""
-Bp6=_ "STD_CODE" "{$PROJ_DIR$\applilet3_src\r_cg_intc_user.c}.178.5" 0 0 0 0 "" 0 ""
-Bp7=_ "STD_CODE" "{$PROJ_DIR$\applilet3_src\r_cg_intc_user.c}.164.5" 0 0 0 0 "" 0 ""
-Bp8=_ "STD_CODE" "{$PROJ_DIR$\applilet3_src\r_cg_intc_user.c}.150.5" 0 0 0 0 "" 0 ""
-Bp9=_ "STD_CODE" "{$PROJ_DIR$\..\Micrium\Software\uC-Probe\Target\Communication\Generic\WiFi\Source\probe_wifi.c}.364.5" 0 0 0 0 "" 0 ""
-Bp10=_ "STD_CODE" "{$PROJ_DIR$\..\..\ADK_G14_9_Demo_3.7\Apps\App_Exosite.c}.757.7" 0 0 0 0 "" 0 ""
-Bp11=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Exosite.c}.355.11" 0 0 0 0 "" 0 ""
-Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\Apps\App_Exosite.c}.766.7" 0 0 0 0 "" 0 ""
-Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\mqtt.c}.295.10" 1 0 0 0 "" 0 ""
-Count=14
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\main.c}.150.5" 1 0 0 0 "" 0 ""
+Count=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

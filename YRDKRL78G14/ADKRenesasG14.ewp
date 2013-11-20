@@ -2264,6 +2264,9 @@
     </group>
   </group>
   <file>
+    <name>$PROJ_DIR$\..\App_Startup.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\main.c</name>
   </file>
   <file>
