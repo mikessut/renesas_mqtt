@@ -171,9 +171,7 @@ void GSinit(void) {
 
 int  main(void)
 {
-   
-    char msg[15];
-  
+    
     HardwareSetup();  
     /************************initializa LCD module********************************/
     SPI2_Init();

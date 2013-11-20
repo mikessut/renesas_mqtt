@@ -34,8 +34,8 @@
 #define ATLIBGS_AP_SSID             ""
 #define ATLIBGS_AP_CHANNEL          NULL //  "6"
 
-#define ATLIBGS_LIMITED_PROVISION_AP_SSID   "ProvisionAP"
-#define ATLIBGS_LIMITED_DOWNLOADAP_SSID     "DownloadAP"
+//#define ATLIBGS_LIMITED_PROVISION_AP_SSID   "ProvisionAP"
+//#define ATLIBGS_LIMITED_DOWNLOADAP_SSID     "DownloadAP"
 #define ATLIBGS_LIMITED_AP_CHANNEL   9  // use 0 for any
 #define ATLIBGS_LIMITED_AP_IP       "192.168.240.1"
 #define ATLIBGS_LIMITED_AP_MASK     "255.255.255.0"

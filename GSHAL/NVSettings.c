@@ -62,8 +62,8 @@ uint8_t NVSettingsSave(NVSettings_t *settings)
 void NVSettingsInit(NVSettings_t *settings)
 {
     memset((void *)settings, 0, sizeof(*settings));
-    strcpy(settings->webprov.ssid, ATLIBGS_AP_SSID);
-    settings->webprov.channel = ATLIBGS_AP_CHANNEL;
+    strcpy(settings->webprov.ssid, "");
+    settings->webprov.channel = NULL;
 #if defined(ATLIBGS_SEC_PSK)
         strcpy(settings->webprov.password, ATLIBGS_AP_SEC_PSK);
         settings->webprov.security = ATLIBGS_SMWPA2PSK;
