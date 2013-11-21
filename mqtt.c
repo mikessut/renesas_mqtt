@@ -25,10 +25,7 @@
 #define  M2MIO_USERNAME   	"demo@renesas.com"
 #define  M2MIO_PASSWORD   	"4c7a34d25eff9121c49658dbceadf694"    // MD5 key of password
 #define  M2MIO_DOMAIN     	"com.renesas"
-//#define  M2MIO_DOMAIN     	"public"
 #define  M2MIO_DEVICE_TYPE	"rl78"
-#define  M2MIO_DEVICE_ID  	"device01"
-#define  M2MIO_SUBSCRIBE_TOPIC  "device01/cmd"
 #define M2MIO_BROKER_HOSTNAME   "q.m2m.io"
 #define	M2MIO_BROKER_PORT	1883
 
@@ -172,8 +169,22 @@ int m2mtest() {
         
 	// now connect using user/password, publish sensor values on
 	// appropriate topic <domain>/<device type>/<device id>
+
+        AtLibGs_GetMAC((char *)msg);
+        uint8_t i = 0;
+        uint8_t j = 0;
+        uint8_t myMac[13];
+        for (i=0; i<sizeof(msg); i++) {
+          if (msg[i] != 0x3A) {
+            myMac[j] = msg[i];
+            j++;
+          }
+        }
+        myMac[j] = '\0';
+        DisplayLCD(LCD_LINE6, myMac);
+
 	
-	sprintf(clientIDStr, "%s/%s", M2MIO_DEVICE_TYPE, M2MIO_DEVICE_ID);
+	sprintf(clientIDStr, "%s", myMac);
 	
 	mqtt_init(&broker, clientIDStr);
 	mqtt_init_auth(&broker, M2MIO_USERNAME, M2MIO_PASSWORD);
@@ -204,17 +215,16 @@ int m2mtest() {
 	if(rxm.message[3] != 0x00) {
 		return -2;
 	}
-	        
-        // subscribe
         
         App_PrepareIncomingData();
         AtLibGs_FlushIncomingMessage();
-        
+
+        // subscribe        
         // Temporarily use pubTopic variable for subscribe
-        sprintf(pubTopic, "%s/%s/%s", M2MIO_DOMAIN, M2MIO_DEVICE_TYPE, M2MIO_SUBSCRIBE_TOPIC);
+        sprintf(pubTopic, "%s/%s/%s/%s", M2MIO_DOMAIN, M2MIO_DEVICE_TYPE, myMac, "cmd");
         mqtt_subscribe(&broker, pubTopic, NULL);
         
-        sprintf(pubTopic, "%s/%s/%s", M2MIO_DOMAIN, M2MIO_DEVICE_TYPE, M2MIO_DEVICE_ID);
+        sprintf(pubTopic, "%s/%s/%s", M2MIO_DOMAIN, M2MIO_DEVICE_TYPE, myMac);
 	
 	while (1) {
           
@@ -229,7 +239,6 @@ int m2mtest() {
               l = mqtt_parse_publish_msg(rxm.message,msg);
               msg[l] = '\0';
               if (strncmp("{\"LED", (char const *)msg, 5) == 0) {
-                //led_n = 10*atoi((char *)msg[7])+atoi((char *)msg[8]);
                 led_n = 10*(msg[8]-48)+msg[9]-48;
                 sprintf(tmpStr, "led_n:%d", led_n);
                 DisplayLCD(LCD_LINE3, (uint8_t *)tmpStr);
