@@ -189,7 +189,7 @@ int m2mtest() {
 	mqtt_init(&broker, clientIDStr);
 	mqtt_init_auth(&broker, M2MIO_USERNAME, M2MIO_PASSWORD);
 
-        AtLibGs_FlushIncomingMessage();        
+        AtLibGs_FlushIncomingMessage();
 	init_socket(&broker, M2MIO_BROKER_HOSTNAME, M2MIO_BROKER_PORT);
 	
         AtLibGs_FlushIncomingMessage();
@@ -238,7 +238,11 @@ int m2mtest() {
             } else if (MQTTParseMessageType(rxm.message) == MQTT_MSG_PUBLISH) {
               l = mqtt_parse_publish_msg(rxm.message,msg);
               msg[l] = '\0';
-              if (strncmp("{\"LED", (char const *)msg, 5) == 0) {
+              if (strncmp("{\"LEDS\":\"ON\"}", (char const *)msg, 13) == 0) {
+                led_all_on();
+              } else if (strncmp("{\"LEDS\":\"OFF\"}", (char const *)msg, 14) == 0) {
+                led_all_off();
+              } else if (strncmp("{\"LED", (char const *)msg, 5) == 0) {
                 led_n = 10*(msg[8]-48)+msg[9]-48;
                 sprintf(tmpStr, "led_n:%d", led_n);
                 DisplayLCD(LCD_LINE3, (uint8_t *)tmpStr);
