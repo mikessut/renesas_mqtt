@@ -10,6 +10,7 @@
 
 #include "AtCmdLib/AtCmdLib.h"
 #include "led.h"
+#include <drv\EInk\eink_driver.h>
 
 // values below can be found by logging into the m2m.io portal (http://app.m2m.io)
 // Username:  your email address you used to create the account
@@ -49,6 +50,10 @@ void App_PrepareIncomingData(void);
 extern int16_t *Accelerometer_Get(void);
 extern uint16_t Temperature_Get(void);
 extern int16_t	gAccData[3];
+
+extern struct EINK_SCREEN_DEF* displayScreen;
+//struct EINK_DISPLAY_TIMING displayParam;
+extern uint8_t dispNum;
 
 #define PUB_POT_MODE 1
 #define PUB_ACCEL_MODE 0
@@ -251,16 +256,14 @@ int m2mtest() {
                   led_off(led_n);
                 }
               } else if (strncmp("{\"EINK\":",(char const *)msg,8) == 0) {
+                DisplayLCD(LCD_LINE3, "eink");
 		char *p;
 		int seg;
-		p = strstr(msg,":");
+		p = strstr((char const *)msg,":");
 		sscanf(p,"%d",&seg);
-		DisplayNumber (&dispNum,seg,TYPE_NUM, displayScreen);  // Turn ON second ICON making sure that first ICON is retained
+		DisplayNumber(&dispNum,seg,TYPE_NUM, displayScreen);  // Turn ON second ICON making sure that first ICON is retained
 		if(updateRequest==FALSE)
 		  updateRequest=TRUE;
-		
-
-
 	      } else {
                 DisplayLCD(LCD_LINE3, msg);
               }

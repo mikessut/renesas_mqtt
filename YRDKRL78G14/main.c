@@ -192,7 +192,7 @@ int  main(void)
     // Set SAU0 enable and UART0/UART1 baud rate
     RL78G14RDK_UART_Start(GAINSPAN_CONSOLE_BAUD, GAINSPAN_CONSOLE_BAUD);
 
-    MSTimerInit();
+    //MSTimerInit();
     initEink();
 
     DisplayLCD(LCD_LINE1, " CLOUD DEMO ");
