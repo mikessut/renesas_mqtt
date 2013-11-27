@@ -197,6 +197,7 @@ int  main(void)
     Potentiometer_Init();
     Accelerometer_Init();
     SwitchesInit();
+    LightSensor_Init();
     
     if ( Switch1IsPressed() ) {
       // provision

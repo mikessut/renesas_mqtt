@@ -5,6 +5,7 @@
 #include "system/platform.h"
 #include <system/Switch.h>
 #include <sensors\Potentiometer.h>
+#include <sensors\LightSensor.h>
 #include <drv\Glyph\lcd.h>
 
 #include "AtCmdLib/AtCmdLib.h"
@@ -293,6 +294,7 @@ int m2mtest() {
             addIntValToMsg("z",gAccData[2], pubMsgStr);
             addIntValToMsg("t",temperature>>3, pubMsgStr);
             addIntValToMsg("p",Potentiometer_Get(), pubMsgStr);            
+            addIntValToMsg("ls",LightSensor_Get(), pubMsgStr); 
             finishJsonMsg(pubMsgStr);
             
             // publish message            
