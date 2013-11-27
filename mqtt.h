@@ -17,7 +17,7 @@
 #endif
 
 #ifndef MQTT_CONF_PASSWORD_LENGTH
-	#define MQTT_CONF_PASSWORD_LENGTH 33 // 32 character (MD5) + '\0'
+	#define MQTT_CONF_PASSWORD_LENGTH 40
 #endif
 
 #define MQTT_MSG_CONNECT       1<<4
