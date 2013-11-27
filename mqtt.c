@@ -30,8 +30,6 @@
 #define M2MIO_BROKER_HOSTNAME   "q.m2m.io"
 #define	M2MIO_BROKER_PORT	1883
 
-
-
 extern int atoi(const char *_S);
 void led_on(int n);
 void led_off(int n);
@@ -252,7 +250,18 @@ int m2mtest() {
                 } else {
                   led_off(led_n);
                 }
-              } else {
+              } else if (strncmp("{\"EINK\":",(char const *)msg,8) == 0) {
+		char *p;
+		int seg;
+		p = strstr(msg,":");
+		sscanf(p,"%d",&seg);
+		DisplayNumber (&dispNum,seg,TYPE_NUM, displayScreen);  // Turn ON second ICON making sure that first ICON is retained
+		if(updateRequest==FALSE)
+		  updateRequest=TRUE;
+		
+
+
+	      } else {
                 DisplayLCD(LCD_LINE3, msg);
               }
             }
