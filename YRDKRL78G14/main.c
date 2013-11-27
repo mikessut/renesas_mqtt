@@ -13,6 +13,8 @@
 #include <HostApp.h>
 #include <init/hwsetup.h>
 #include <drv\Glyph\lcd.h>
+#include <drv\Timer.h>
+#include <drv\EInk\user_app.h>
 #include <mstimer.h>
 #include <system/Switch.h>
 #include <sensors\Potentiometer.h>
@@ -189,8 +191,9 @@ int  main(void)
         
     // Set SAU0 enable and UART0/UART1 baud rate
     RL78G14RDK_UART_Start(GAINSPAN_CONSOLE_BAUD, GAINSPAN_CONSOLE_BAUD);
-    PM15 &= ~(1 << 2);       //EInk hand
-    P15 &= ~(1 << 2);
+
+    MSTimerInit();
+    initEink();
 
     DisplayLCD(LCD_LINE1, " CLOUD DEMO ");
     Temperature_Init();
