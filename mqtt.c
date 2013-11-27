@@ -260,8 +260,9 @@ int m2mtest() {
 		char *p;
 		int seg;
 		p = strstr((char const *)msg,":");
-		sscanf(p,"%d",&seg);
-		DisplayNumber(&dispNum,seg,TYPE_NUM, displayScreen);  // Turn ON second ICON making sure that first ICON is retained
+		sscanf(p+1,"%d",&seg);
+		DisplayNumber(&dispNum,2,TYPE_NUM, displayScreen);  // Turn ON second ICON making sure that first ICON is retained
+		DisplayNumber(&dispNum,seg,TYPE_NUM|FORMAT_RETAIN_OTHER, displayScreen);  // Turn ON second ICON making sure that first ICON is retained
 		if(updateRequest==FALSE)
 		  updateRequest=TRUE;
 	      } else {
@@ -306,7 +307,9 @@ int m2mtest() {
             addIntValToMsg("z",gAccData[2], pubMsgStr);
             addIntValToMsg("t",temperature>>3, pubMsgStr);
             addIntValToMsg("p",Potentiometer_Get(), pubMsgStr);            
-            addIntValToMsg("ls",LightSensor_Get(), pubMsgStr); 
+            addIntValToMsg("als",LightSensor_Get(), pubMsgStr); 
+            addIntValToMsg("s2",Switch2IsPressed(), pubMsgStr); 
+            addIntValToMsg("s3",Switch3IsPressed(), pubMsgStr); 
             finishJsonMsg(pubMsgStr);
             
             // publish message            
